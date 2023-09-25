@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 import re
 from django.core.validators import RegexValidator
-
+from django.contrib.auth.models import AbstractUser
 
 class Customer(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE, null=True, blank=True )
