@@ -50,12 +50,14 @@ def cartData(request):
             order, created = Order.objects.get_or_create(customer=customer, complete=False)
         items = order.orderitem_set.all()
         cart_items = order.get_cart_items
+        status = True
     else:
         cookie_data = cookieCart(request)
         cart_items = cookie_data['cart_items']
         items = cookie_data['items']
         order = cookie_data['order']
-    return {'cart_items': cart_items, 'order': order, 'items':items}
+        status = False
+    return {'cart_items': cart_items, 'order': order, 'items':items, 'status': status}
 
 def guestOrder(request,data):
     print("User is not logged in")

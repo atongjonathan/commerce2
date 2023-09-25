@@ -10,18 +10,24 @@
 
     <form action="{% url 'register' %}" method="post">
         {% csrf_token %}
-        <div class="form-group">
-            <input class="form-control" autofocus type="text" name="username" placeholder="Username">
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="email" name="email" placeholder="Email Address">
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="password" name="password" placeholder="Password">
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
-        </div>
+        <!-- <div class="form-group"> -->
+            <!-- <div id="user-info"> -->
+                <div class="form-group">
+                    <input required class="form-control" type="text" name="name" placeholder="Name..">
+                </div>
+                <div class="form-group">
+                    <input required class="form-control" type="email" name="email" placeholder="Email..">
+                </div>
+                <div class="form-group">
+                    <input required class="form-control" type="text" name="phone_number" placeholder="Phone Number..">
+                </div>
+                <div class="form-group">
+                    <input required class="form-control" type="password" name="password" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <input required class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
+                </div>
+        <!-- </div> -->
         <input class="btn btn-primary" type="submit" value="Register">
     </form>
 
