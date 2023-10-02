@@ -40,12 +40,16 @@ def checkout(request):
     return render(request,template_name="commerce/checkout.html",context=context)
 
 
-def store(request):
+def store(request,category):
     data = cartData(request)
     cart_items = data['cart_items']
     status = data['status']
-
-    products = Product.objects.all()
+    if category == 'home':
+        products = Product.objects.all()
+    elif category == 'True':
+        products = Product.objects.filter(digital=True)
+    elif category == 'False':
+        products = Product.objects.filter(digital=False)
     context = {
         'products':products, 'cartItems': cart_items,'status': status
         }
@@ -135,7 +139,7 @@ def register(request):
             # Log in the user
             login(request, user)
 
-            return HttpResponseRedirect(reverse("store"))
+            return HttpResponseRedirect(reverse("store"), kwargs={'category': 'home'})
 
         except IntegrityError:
             return render(request, "commerce/register.html", {
@@ -158,14 +162,14 @@ def login_view(request):
         # Check if authentication successful
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse("store"))
+            return HttpResponseRedirect(reverse('store', kwargs={'category': 'home'}))
         else:
             return render(request, "auctions/login.html", {
                 "message": "Invalid username and/or password."
             })
     else:
-        return render(request, "commerce/login.html")
+        return render(request, "commerce/login.html", context={"cartItems":0})
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect(reverse("store"))
+    return HttpResponseRedirect(reverse('store', kwargs={'category': 'home'}))
